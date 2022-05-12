@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace DoAnBaiToan8So
 {
+
+    // Khai báo  NODE
     public class Node
     {
-
-        public int[,] MaTran8So;// ma trận 8 số
-        public int SoManhSai;//số mảnh sai vị trí của ma trận
-        public int ChiSo;// chỉ số của node
-        public int Cha;// cha của node, để truy vét kết quả
-        public int fn;// chi phí đi đến node đó
+        public int[,] MaTran8So;
+        public int SoViTriSai;
+        public int ChiSoNode;
+        public int ChaNode;
+        public int ChiPhiDenNode;
     }
     public class CT8SO
     {
@@ -22,7 +23,7 @@ namespace DoAnBaiToan8So
         public Stack<int[,]> timKetQua(int[,] MaTran, int n)
         {
 
-            Stack<int[,]> stkKetQua = new Stack<int[,]>();
+            Stack<int[,]> SepKetQua = new Stack<int[,]>();
 
             List<Node> Close = new List<Node>();
             List<Node> Open = new List<Node>();
@@ -30,10 +31,10 @@ namespace DoAnBaiToan8So
             //khai báo và khởi tạo cho node đầu tiên
             Node tSo = new Node();
             tSo.MaTran8So = MaTran;
-            tSo.SoManhSai = soMiengSaiViTri(MaTran);
-            tSo.ChiSo = 0;
-            tSo.Cha = -1;
-            tSo.fn = 0;
+            tSo.SoViTriSai = soMiengSaiViTri(MaTran);
+            tSo.ChiSoNode = 0;
+            tSo.ChaNode = -1;
+            tSo.ChiPhiDenNode = 0;
             //cho trạng thái đầu tiên vào Open;
             Open.Add(tSo);
 
@@ -48,7 +49,7 @@ namespace DoAnBaiToan8So
                 #endregion
 
                 //nếu node có số mảnh sai là 0, tức là đích thì thoát
-                if (tSo.SoManhSai == 0) break;
+                if (tSo.SoViTriSai == 0) break;
                 else
                 {
                     //sinh hướng đi của node hiện tại
@@ -97,9 +98,9 @@ namespace DoAnBaiToan8So
             }
 
             //truy vét kết quả tỏng tập Close
-            stkKetQua = truyVetKetQua(Close);
+            SepKetQua = truyVetKetQua(Close);
 
-            return stkKetQua;
+            return SepKetQua;
         }
 
         //truy vét kết quả đường đi trong tập Close
@@ -107,7 +108,7 @@ namespace DoAnBaiToan8So
         {
             Stack<int[,]> ketQua = new Stack<int[,]>();
 
-            int t = Close[Close.Count - 1].Cha;
+            int t = Close[Close.Count - 1].ChaNode;
             Node temp = new Node();
             ketQua.Push(Close[Close.Count - 1].MaTran8So);
 
@@ -115,7 +116,7 @@ namespace DoAnBaiToan8So
             {
                 for (int i = 0; i < Close.Count; i++)
                 {
-                    if (t == Close[i].ChiSo)
+                    if (t == Close[i].ChiSoNode)
                     {
                         temp = Close[i];
                         break;
@@ -123,7 +124,7 @@ namespace DoAnBaiToan8So
                 }
 
                 ketQua.Push(temp.MaTran8So);
-                t = temp.Cha;
+                t = temp.ChaNode;
             }
 
             return ketQua;
@@ -174,11 +175,11 @@ namespace DoAnBaiToan8So
                 Temp.MaTran8So[h - 1, c] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
+                Temp.SoViTriSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
-                Temp.ChiSo = ChiSo;
-                Temp.Cha = tSo.ChiSo;
-                Temp.fn = fn + Temp.SoManhSai;
+                Temp.ChiSoNode = ChiSo;
+                Temp.ChaNode = tSo.ChiSoNode;
+                Temp.ChiPhiDenNode = fn + Temp.SoViTriSai;
                 lstHuongDi.Add(Temp);
 
                 //sau khi thay đổi ma trận thì copy lại ma trận cha cho MaTran để xét trường hợp tiếp theo
@@ -194,11 +195,11 @@ namespace DoAnBaiToan8So
                 Temp.MaTran8So[h + 1, c] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
+                Temp.SoViTriSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
-                Temp.ChiSo = ChiSo;
-                Temp.Cha = tSo.ChiSo;
-                Temp.fn = fn + Temp.SoManhSai;
+                Temp.ChiSoNode = ChiSo;
+                Temp.ChaNode = tSo.ChiSoNode;
+                Temp.ChiPhiDenNode = fn + Temp.SoViTriSai;
                 lstHuongDi.Add(Temp);
 
                 //sau khi thay đổi ma trận thì copy lại ma trận cha cho MaTran để xét trường hợp tiếp theo
@@ -214,11 +215,11 @@ namespace DoAnBaiToan8So
                 Temp.MaTran8So[h, c - 1] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
+                Temp.SoViTriSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
-                Temp.ChiSo = ChiSo;
-                Temp.Cha = tSo.ChiSo;
-                Temp.fn = fn + Temp.SoManhSai;
+                Temp.ChiSoNode = ChiSo;
+                Temp.ChaNode = tSo.ChiSoNode;
+                Temp.ChiPhiDenNode = fn + Temp.SoViTriSai;
                 lstHuongDi.Add(Temp);
 
                 //sau khi thay đổi ma trận thì copy lại ma trận cha cho MaTran để xét trường hợp tiếp theo
@@ -234,11 +235,11 @@ namespace DoAnBaiToan8So
                 Temp.MaTran8So[h, c + 1] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
+                Temp.SoViTriSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
-                Temp.ChiSo = ChiSo;
-                Temp.Cha = tSo.ChiSo;
-                Temp.fn = fn + Temp.SoManhSai;
+                Temp.ChiSoNode = ChiSo;
+                Temp.ChaNode = tSo.ChiSoNode;
+                Temp.ChiPhiDenNode = fn + Temp.SoViTriSai;
                 lstHuongDi.Add(Temp);
 
                 //đến đây đã xết hết hướng đi nên không cần copy lại ma trận
@@ -263,16 +264,16 @@ namespace DoAnBaiToan8So
                 int vt = 0;
 
                 for (int i = 1; i < Open.Count; i++)
-                    if (min.SoManhSai > Open[i].SoManhSai)
+                    if (min.SoViTriSai > Open[i].SoViTriSai)
                     {
                         min = Open[i];
                         vt = i;
                     }
                     else
                     {
-                        if (min.SoManhSai == Open[i].SoManhSai)
+                        if (min.SoViTriSai  == Open[i].SoViTriSai)
                         {
-                            if (min.fn > Open[i].fn)
+                            if (min.ChiPhiDenNode > Open[i].ChiPhiDenNode)
                             {
                                 min = Open[i];
                                 vt = i;
@@ -297,11 +298,11 @@ namespace DoAnBaiToan8So
             for (int i = 0; i < lst8So.Count; i++)
                 if (haiMaTranBangNhau(tSo.MaTran8So, lst8So[i].MaTran8So))
                 {
-                    if (tSo.fn < lst8So[i].fn)
+                    if (tSo.ChiPhiDenNode < lst8So[i].ChiPhiDenNode)
                     {
                         //vì 2 ma trận bằng nhau lên số mảnh sai vi trị là như nhau lên ta không cần cập nhật
-                        lst8So[i].Cha = tSo.Cha;// cập nhật lại cha của hướng đi
-                        lst8So[i].fn = tSo.fn;// cập nhật lại chi phí đường đi
+                        lst8So[i].ChaNode = tSo.ChaNode;// cập nhật lại cha của hướng đi
+                        lst8So[i].ChiPhiDenNode = tSo.ChiPhiDenNode;// cập nhật lại chi phí đường đi
 
                         return true;
                     }
