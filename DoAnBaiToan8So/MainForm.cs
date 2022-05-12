@@ -12,26 +12,27 @@ namespace DoAnBaiToan8So
 {
     public partial class MainForm : Form
     {
-
-        int[,] MaTran;
-        CT8SO TamSo;
-        Stack<int[,]> stk;
-        Button[,] Mangbt;
-        int n = 3;
+        // Khai báo các biến 
+        int[,] MaTranCT8So;
+        CT8SO EightPuzzle;
+        Stack<int[,]> Sep;        
+        Button[,] Mangbutton;
+        //int n = 3;
         int SoLanDiChuyen = 0;
 
 
         public MainForm()
         {
             InitializeComponent();
-            MaTran = new int[n, n];
-            TamSo = new CT8SO();
-
-            stk = new Stack<int[,]>();
-            Mangbt = new Button[n, n];
+            MaTranCT8So = new int[3, 3];
+            EightPuzzle = new CT8SO();
+            Sep = new Stack<int[,]>();
+            Mangbutton = new Button[3, 3];
         }
 
-        void load8So(int[,] a, Button[,] b)
+
+        // Đổi màu các button báo hiệu chương trình sẳn sàng chạy
+        void load8So_DoiMauCacButton(int[,] a, Button[,] b)
         {
             for (int i = 0; i < a.GetLength(0); i++)
                 for (int j = 0; j < a.GetLength(0); j++)
@@ -39,27 +40,32 @@ namespace DoAnBaiToan8So
                     if (a[i, j] == 0)
                     {
                         b[i, j].Text = "";
-                        b[i, j].BackColor = Color.MediumSeaGreen;
+                        b[i, j].BackColor = Color.Black;
                     }
                     else
                     {
                         b[i, j].Text = a[i, j].ToString();
-                        b[i, j].BackColor = Color.White;
+                        b[i, j].BackColor = Color.Blue;
                     }
                 }
         }
 
-        void khoiTao8So()
+
+        void KhoiTao8So()
         {
-            MaTran = TamSo.randomMaTran(n);
-
-            load8So(MaTran, Mangbt);
-
-            stk = TamSo.timKetQua(MaTran, n);
-            stk.Pop();
-            comboboxTocDo.Text = comboboxTocDo.Items[0].ToString();
+            // Tạo trò chơi 8 số bằng cách random
+            MaTranCT8So = EightPuzzle.randomMaTran(3);
+            // Đổi màu đánh dấu chương trình đã sẳn sàng
+            load8So_DoiMauCacButton(MaTranCT8So, Mangbutton);
+            // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            Sep = EightPuzzle.timKetQua(MaTranCT8So, 3);
+            Sep.Pop(); // Xóa phần tử khỏi đỉnh
+            // Chọn tốc độ chạy ban đầu
+            comboboxTocDo.Text = comboboxTocDo.Items[1].ToString();
+            // Tính số bước đi
             labelSoLanDiChuyenAStar.Text = "0";
             SoLanDiChuyen = 0;
+            // Đóng các button
             buttonBatDau.Enabled = false;
             buttonDung.Enabled = false;
             timer1.Enabled = false;
@@ -70,7 +76,7 @@ namespace DoAnBaiToan8So
 
         private void bottonChoiMoi_Click(object sender, EventArgs e)
         {
-            khoiTao8So();
+            KhoiTao8So();
             buttonBatDau.Enabled = true;
         }
 
@@ -88,15 +94,15 @@ namespace DoAnBaiToan8So
 
             {
 
-                Mangbt[0, 0] = ButtonAStartSo1;
-                Mangbt[0, 1] = ButtonAStartSo2;
-                Mangbt[0, 2] = ButtonAStartSo3;
-                Mangbt[1, 0] = ButtonAStartSo8;
-                Mangbt[1, 1] = ButtonAStartSo0;
-                Mangbt[1, 2] = ButtonAStartSo4;
-                Mangbt[2, 0] = ButtonAStartSo7;
-                Mangbt[2, 1] = ButtonAStartSo6;
-                Mangbt[2, 2] = ButtonAStartSo5;
+                Mangbutton[0, 0] = ButtonAStartSo1;
+                Mangbutton[0, 1] = ButtonAStartSo2;
+                Mangbutton[0, 2] = ButtonAStartSo3;
+                Mangbutton[1, 0] = ButtonAStartSo8;
+                Mangbutton[1, 1] = ButtonAStartSo0;
+                Mangbutton[1, 2] = ButtonAStartSo4;
+                Mangbutton[2, 0] = ButtonAStartSo7;
+                Mangbutton[2, 1] = ButtonAStartSo6;
+                Mangbutton[2, 2] = ButtonAStartSo5;
 
                 buttonBatDau.Enabled = false;
                 buttonDung.Enabled = false;
@@ -108,19 +114,16 @@ namespace DoAnBaiToan8So
         {
             switch (comboboxTocDo.Text)
             {
-                case "1": timer1.Interval = 2000; break;
-                case "2": timer1.Interval = 1500; break;
-                case "3": timer1.Interval = 1000; break;
-                case "4": timer1.Interval = 500; break;
-                case "5": timer1.Interval = 250; break;
+                case "1": timer1.Interval = 1750; break;
+                case "2": timer1.Interval = 225; break;
             }
 
-            int[,] Temp = new int[n, n];
+            int[,] Temp = new int[3, 3];
 
-            if (stk.Count != 0)
+            if (Sep.Count != 0)
             {
-                Temp = stk.Pop();
-                load8So(Temp, Mangbt);
+                Temp = Sep.Pop(); // Xóa phần tử khỏi đỉnh
+                load8So_DoiMauCacButton(Temp, Mangbutton);
 
                 SoLanDiChuyen++;
                 labelSoLanDiChuyenAStar.Text = SoLanDiChuyen.ToString();

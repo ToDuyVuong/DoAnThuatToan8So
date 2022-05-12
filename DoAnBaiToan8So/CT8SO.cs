@@ -9,7 +9,7 @@ namespace DoAnBaiToan8So
     public class Node
     {
 
-        public int[,] MaTran;// ma trận 8 số
+        public int[,] MaTran8So;// ma trận 8 số
         public int SoManhSai;//số mảnh sai vị trí của ma trận
         public int ChiSo;// chỉ số của node
         public int Cha;// cha của node, để truy vét kết quả
@@ -29,7 +29,7 @@ namespace DoAnBaiToan8So
 
             //khai báo và khởi tạo cho node đầu tiên
             Node tSo = new Node();
-            tSo.MaTran = MaTran;
+            tSo.MaTran8So = MaTran;
             tSo.SoManhSai = soMiengSaiViTri(MaTran);
             tSo.ChiSo = 0;
             tSo.Cha = -1;
@@ -109,7 +109,7 @@ namespace DoAnBaiToan8So
 
             int t = Close[Close.Count - 1].Cha;
             Node temp = new Node();
-            ketQua.Push(Close[Close.Count - 1].MaTran);
+            ketQua.Push(Close[Close.Count - 1].MaTran8So);
 
             while (t != -1)
             {
@@ -122,7 +122,7 @@ namespace DoAnBaiToan8So
                     }
                 }
 
-                ketQua.Push(temp.MaTran);
+                ketQua.Push(temp.MaTran8So);
                 t = temp.Cha;
             }
 
@@ -137,7 +137,7 @@ namespace DoAnBaiToan8So
         /// <returns>danh sách các hướng đi</returns>
         List<Node> sinhHuongDi(Node tSo)
         {
-            int n = tSo.MaTran.GetLength(0);//lấy số hàng của ma trận
+            int n = tSo.MaTran8So.GetLength(0);//lấy số hàng của ma trận
 
             List<Node> lstHuongDi = new List<Node>();
 
@@ -148,7 +148,7 @@ namespace DoAnBaiToan8So
             for (h = 0; h < n; h++)
             {
                 for (c = 0; c < n; c++)
-                    if (tSo.MaTran[h, c] == 0)
+                    if (tSo.MaTran8So[h, c] == 0)
                     {
                         ok = true;
                         break;
@@ -159,9 +159,9 @@ namespace DoAnBaiToan8So
             #endregion
 
             Node Temp = new Node();
-            Temp.MaTran = new int[n, n];
+            Temp.MaTran8So = new int[n, n];
             //Copy mảng Ma trận sang mảng ma trận tạm
-            Array.Copy(tSo.MaTran, Temp.MaTran, tSo.MaTran.Length);
+            Array.Copy(tSo.MaTran8So, Temp.MaTran8So, tSo.MaTran8So.Length);
 
             fn++;// tăng chi phí của node con lên 1 đơn vị
 
@@ -170,11 +170,11 @@ namespace DoAnBaiToan8So
             if (h > 0 && h <= n - 1)
             {
                 // thay đổi hướng đi của ma trận
-                Temp.MaTran[h, c] = Temp.MaTran[h - 1, c];
-                Temp.MaTran[h - 1, c] = 0;
+                Temp.MaTran8So[h, c] = Temp.MaTran8So[h - 1, c];
+                Temp.MaTran8So[h - 1, c] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran);
+                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
                 Temp.ChiSo = ChiSo;
                 Temp.Cha = tSo.ChiSo;
@@ -183,18 +183,18 @@ namespace DoAnBaiToan8So
 
                 //sau khi thay đổi ma trận thì copy lại ma trận cha cho MaTran để xét trường hợp tiếp theo
                 Temp = new Node();
-                Temp.MaTran = new int[n, n];
-                Array.Copy(tSo.MaTran, Temp.MaTran, tSo.MaTran.Length);
+                Temp.MaTran8So = new int[n, n];
+                Array.Copy(tSo.MaTran8So, Temp.MaTran8So, tSo.MaTran8So.Length);
             }
             //xét hàng ngang bắt đầu từ hàng thứ cuối cùng - 1 trở xuống
             if (h < n - 1 && h >= 0)
             {
                 // thay đổi hướng đi của ma trận
-                Temp.MaTran[h, c] = Temp.MaTran[h + 1, c];
-                Temp.MaTran[h + 1, c] = 0;
+                Temp.MaTran8So[h, c] = Temp.MaTran8So[h + 1, c];
+                Temp.MaTran8So[h + 1, c] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran);
+                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
                 Temp.ChiSo = ChiSo;
                 Temp.Cha = tSo.ChiSo;
@@ -203,18 +203,18 @@ namespace DoAnBaiToan8So
 
                 //sau khi thay đổi ma trận thì copy lại ma trận cha cho MaTran để xét trường hợp tiếp theo
                 Temp = new Node();
-                Temp.MaTran = new int[n, n];
-                Array.Copy(tSo.MaTran, Temp.MaTran, tSo.MaTran.Length);
+                Temp.MaTran8So = new int[n, n];
+                Array.Copy(tSo.MaTran8So, Temp.MaTran8So, tSo.MaTran8So.Length);
             }
             //Xét cột dọc bắt đầu từ cột thứ 2 trở đi
             if (c > 0 && c <= n - 1)
             {
                 // thay đổi hướng đi của ma trận
-                Temp.MaTran[h, c] = Temp.MaTran[h, c - 1];
-                Temp.MaTran[h, c - 1] = 0;
+                Temp.MaTran8So[h, c] = Temp.MaTran8So[h, c - 1];
+                Temp.MaTran8So[h, c - 1] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran);
+                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
                 Temp.ChiSo = ChiSo;
                 Temp.Cha = tSo.ChiSo;
@@ -223,18 +223,18 @@ namespace DoAnBaiToan8So
 
                 //sau khi thay đổi ma trận thì copy lại ma trận cha cho MaTran để xét trường hợp tiếp theo
                 Temp = new Node();
-                Temp.MaTran = new int[n, n];
-                Array.Copy(tSo.MaTran, Temp.MaTran, tSo.MaTran.Length);
+                Temp.MaTran8So = new int[n, n];
+                Array.Copy(tSo.MaTran8So, Temp.MaTran8So, tSo.MaTran8So.Length);
             }
             //Xét cột dọc bắt đầu từ cột cuối cùng -1 trở xuống
             if (c < n - 1 && c >= 0)
             {
                 // thay đổi hướng đi của ma trận
-                Temp.MaTran[h, c] = Temp.MaTran[h, c + 1];
-                Temp.MaTran[h, c + 1] = 0;
+                Temp.MaTran8So[h, c] = Temp.MaTran8So[h, c + 1];
+                Temp.MaTran8So[h, c + 1] = 0;
 
                 //cập nhật lại thông số của node
-                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran);
+                Temp.SoManhSai = soMiengSaiViTri(Temp.MaTran8So);
                 ChiSo++;
                 Temp.ChiSo = ChiSo;
                 Temp.Cha = tSo.ChiSo;
@@ -295,7 +295,7 @@ namespace DoAnBaiToan8So
         bool soSanhTotHon(Node tSo, List<Node> lst8So)
         {
             for (int i = 0; i < lst8So.Count; i++)
-                if (haiMaTranBangNhau(tSo.MaTran, lst8So[i].MaTran))
+                if (haiMaTranBangNhau(tSo.MaTran8So, lst8So[i].MaTran8So))
                 {
                     if (tSo.fn < lst8So[i].fn)
                     {
@@ -322,7 +322,7 @@ namespace DoAnBaiToan8So
         {
             Node Trung = new Node();
             for (int i = 0; i < lst8So.Count; i++)
-                if (haiMaTranBangNhau(tSo.MaTran, lst8So[i].MaTran))
+                if (haiMaTranBangNhau(tSo.MaTran8So, lst8So[i].MaTran8So))
                 {
                     Trung = lst8So[i];
                     break;
@@ -340,7 +340,7 @@ namespace DoAnBaiToan8So
         bool haiNodeTrungNhau(Node tSo, List<Node> lst8So)
         {
             for (int i = 0; i < lst8So.Count; i++)
-                if (haiMaTranBangNhau(lst8So[i].MaTran, tSo.MaTran))
+                if (haiMaTranBangNhau(lst8So[i].MaTran8So, tSo.MaTran8So))
                     return true;
 
             return false;

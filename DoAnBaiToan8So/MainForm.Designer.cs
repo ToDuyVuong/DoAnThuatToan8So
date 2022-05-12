@@ -239,7 +239,7 @@
             this.SoLanDiChuyenThuatToan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.SoLanDiChuyenThuatToan.Location = new System.Drawing.Point(259, 324);
             this.SoLanDiChuyenThuatToan.Name = "SoLanDiChuyenThuatToan";
-            this.SoLanDiChuyenThuatToan.Size = new System.Drawing.Size(105, 16);
+            this.SoLanDiChuyenThuatToan.Size = new System.Drawing.Size(106, 16);
             this.SoLanDiChuyenThuatToan.TabIndex = 20;
             this.SoLanDiChuyenThuatToan.Text = "Số lần di chuyển";
             // 
@@ -301,7 +301,7 @@
             this.SoLanDiChuyenThuatToanAStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.SoLanDiChuyenThuatToanAStar.Location = new System.Drawing.Point(33, 324);
             this.SoLanDiChuyenThuatToanAStar.Name = "SoLanDiChuyenThuatToanAStar";
-            this.SoLanDiChuyenThuatToanAStar.Size = new System.Drawing.Size(105, 16);
+            this.SoLanDiChuyenThuatToanAStar.Size = new System.Drawing.Size(106, 16);
             this.SoLanDiChuyenThuatToanAStar.TabIndex = 15;
             this.SoLanDiChuyenThuatToanAStar.Text = "Số lần di chuyển";
             // 
@@ -311,7 +311,7 @@
             this.labelToDo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.labelToDo.Location = new System.Drawing.Point(154, 181);
             this.labelToDo.Name = "labelToDo";
-            this.labelToDo.Size = new System.Drawing.Size(118, 16);
+            this.labelToDo.Size = new System.Drawing.Size(119, 16);
             this.labelToDo.TabIndex = 14;
             this.labelToDo.Text = "Tốc độ hoàn thành";
             // 
@@ -322,10 +322,7 @@
             this.comboboxTocDo.FormattingEnabled = true;
             this.comboboxTocDo.Items.AddRange(new object[] {
             "1",
-            "2",
-            "3",
-            "4",
-            "5"});
+            "2"});
             this.comboboxTocDo.Location = new System.Drawing.Point(124, 210);
             this.comboboxTocDo.Name = "comboboxTocDo";
             this.comboboxTocDo.Size = new System.Drawing.Size(179, 21);
