@@ -44,13 +44,13 @@
             this.labelThuatToanAStar = new System.Windows.Forms.Label();
             this.labelSoLanDiChuyen = new System.Windows.Forms.Label();
             this.SoLanDiChuyenThuatToan = new System.Windows.Forms.Label();
-            this.btnDung = new System.Windows.Forms.Button();
-            this.btnChoiMoi = new System.Windows.Forms.Button();
-            this.btnBauDau = new System.Windows.Forms.Button();
+            this.buttonDung = new System.Windows.Forms.Button();
+            this.buttonChoiMoi = new System.Windows.Forms.Button();
+            this.buttonBatDau = new System.Windows.Forms.Button();
             this.labelSoLanDiChuyenAStar = new System.Windows.Forms.Label();
             this.SoLanDiChuyenThuatToanAStar = new System.Windows.Forms.Label();
             this.labelToDo = new System.Windows.Forms.Label();
-            this.cbbTocDo = new System.Windows.Forms.ComboBox();
+            this.comboboxTocDo = new System.Windows.Forms.ComboBox();
             this.ButtonAStartSo0 = new System.Windows.Forms.Button();
             this.ButtonAStartSo2 = new System.Windows.Forms.Button();
             this.ButtonAStartSo3 = new System.Windows.Forms.Button();
@@ -63,6 +63,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // buttonSo0
             // 
@@ -187,13 +191,13 @@
             this.panel2.Controls.Add(this.labelThuatToanAStar);
             this.panel2.Controls.Add(this.labelSoLanDiChuyen);
             this.panel2.Controls.Add(this.SoLanDiChuyenThuatToan);
-            this.panel2.Controls.Add(this.btnDung);
-            this.panel2.Controls.Add(this.btnChoiMoi);
-            this.panel2.Controls.Add(this.btnBauDau);
+            this.panel2.Controls.Add(this.buttonDung);
+            this.panel2.Controls.Add(this.buttonChoiMoi);
+            this.panel2.Controls.Add(this.buttonBatDau);
             this.panel2.Controls.Add(this.labelSoLanDiChuyenAStar);
             this.panel2.Controls.Add(this.SoLanDiChuyenThuatToanAStar);
             this.panel2.Controls.Add(this.labelToDo);
-            this.panel2.Controls.Add(this.cbbTocDo);
+            this.panel2.Controls.Add(this.comboboxTocDo);
             this.panel2.Location = new System.Drawing.Point(506, 90);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(404, 487);
@@ -239,44 +243,47 @@
             this.SoLanDiChuyenThuatToan.TabIndex = 20;
             this.SoLanDiChuyenThuatToan.Text = "Số lần di chuyển";
             // 
-            // btnDung
+            // buttonDung
             // 
-            this.btnDung.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDung.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnDung.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnDung.Location = new System.Drawing.Point(137, 128);
-            this.btnDung.Name = "btnDung";
-            this.btnDung.Size = new System.Drawing.Size(152, 40);
-            this.btnDung.TabIndex = 17;
-            this.btnDung.Text = "Tạm dừng";
-            this.btnDung.UseVisualStyleBackColor = false;
+            this.buttonDung.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonDung.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonDung.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.buttonDung.Location = new System.Drawing.Point(137, 128);
+            this.buttonDung.Name = "buttonDung";
+            this.buttonDung.Size = new System.Drawing.Size(152, 40);
+            this.buttonDung.TabIndex = 17;
+            this.buttonDung.Text = "Tạm dừng";
+            this.buttonDung.UseVisualStyleBackColor = false;
+            this.buttonDung.Click += new System.EventHandler(this.bottonDung_Click);
             // 
-            // btnChoiMoi
+            // buttonChoiMoi
             // 
-            this.btnChoiMoi.BackColor = System.Drawing.SystemColors.Control;
-            this.btnChoiMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChoiMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnChoiMoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnChoiMoi.Location = new System.Drawing.Point(137, 28);
-            this.btnChoiMoi.Name = "btnChoiMoi";
-            this.btnChoiMoi.Size = new System.Drawing.Size(152, 40);
-            this.btnChoiMoi.TabIndex = 18;
-            this.btnChoiMoi.Text = "Chơi mới";
-            this.btnChoiMoi.UseVisualStyleBackColor = false;
+            this.buttonChoiMoi.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonChoiMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonChoiMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonChoiMoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.buttonChoiMoi.Location = new System.Drawing.Point(137, 28);
+            this.buttonChoiMoi.Name = "buttonChoiMoi";
+            this.buttonChoiMoi.Size = new System.Drawing.Size(152, 40);
+            this.buttonChoiMoi.TabIndex = 18;
+            this.buttonChoiMoi.Text = "Chơi mới";
+            this.buttonChoiMoi.UseVisualStyleBackColor = false;
+            this.buttonChoiMoi.Click += new System.EventHandler(this.bottonChoiMoi_Click);
             // 
-            // btnBauDau
+            // buttonBatDau
             // 
-            this.btnBauDau.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBauDau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBauDau.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnBauDau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnBauDau.Location = new System.Drawing.Point(137, 78);
-            this.btnBauDau.Name = "btnBauDau";
-            this.btnBauDau.Size = new System.Drawing.Size(152, 40);
-            this.btnBauDau.TabIndex = 19;
-            this.btnBauDau.Text = "Bắt đầu";
-            this.btnBauDau.UseVisualStyleBackColor = false;
+            this.buttonBatDau.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonBatDau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBatDau.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonBatDau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.buttonBatDau.Location = new System.Drawing.Point(137, 78);
+            this.buttonBatDau.Name = "buttonBatDau";
+            this.buttonBatDau.Size = new System.Drawing.Size(152, 40);
+            this.buttonBatDau.TabIndex = 19;
+            this.buttonBatDau.Text = "Bắt đầu";
+            this.buttonBatDau.UseVisualStyleBackColor = false;
+            this.buttonBatDau.Click += new System.EventHandler(this.bottonBatDau_Click);
             // 
             // labelSoLanDiChuyenAStar
             // 
@@ -308,21 +315,21 @@
             this.labelToDo.TabIndex = 14;
             this.labelToDo.Text = "Tốc độ hoàn thành";
             // 
-            // cbbTocDo
+            // comboboxTocDo
             // 
-            this.cbbTocDo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbTocDo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbbTocDo.FormattingEnabled = true;
-            this.cbbTocDo.Items.AddRange(new object[] {
+            this.comboboxTocDo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboboxTocDo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboboxTocDo.FormattingEnabled = true;
+            this.comboboxTocDo.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4",
             "5"});
-            this.cbbTocDo.Location = new System.Drawing.Point(124, 210);
-            this.cbbTocDo.Name = "cbbTocDo";
-            this.cbbTocDo.Size = new System.Drawing.Size(179, 21);
-            this.cbbTocDo.TabIndex = 13;
+            this.comboboxTocDo.Location = new System.Drawing.Point(124, 210);
+            this.comboboxTocDo.Name = "comboboxTocDo";
+            this.comboboxTocDo.Size = new System.Drawing.Size(179, 21);
+            this.comboboxTocDo.TabIndex = 13;
             // 
             // ButtonAStartSo0
             // 
@@ -479,6 +486,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -503,13 +511,13 @@
         private System.Windows.Forms.Label labelThuatToanAStar;
         private System.Windows.Forms.Label labelSoLanDiChuyen;
         private System.Windows.Forms.Label SoLanDiChuyenThuatToan;
-        private System.Windows.Forms.Button btnDung;
-        private System.Windows.Forms.Button btnChoiMoi;
-        private System.Windows.Forms.Button btnBauDau;
+        private System.Windows.Forms.Button buttonDung;
+        private System.Windows.Forms.Button buttonChoiMoi;
+        private System.Windows.Forms.Button buttonBatDau;
         private System.Windows.Forms.Label labelSoLanDiChuyenAStar;
         private System.Windows.Forms.Label SoLanDiChuyenThuatToanAStar;
         private System.Windows.Forms.Label labelToDo;
-        private System.Windows.Forms.ComboBox cbbTocDo;
+        private System.Windows.Forms.ComboBox comboboxTocDo;
         private System.Windows.Forms.Button ButtonAStartSo0;
         private System.Windows.Forms.Button ButtonAStartSo2;
         private System.Windows.Forms.Button ButtonAStartSo3;
