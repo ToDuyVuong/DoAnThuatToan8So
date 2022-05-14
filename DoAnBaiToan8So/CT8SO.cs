@@ -57,19 +57,20 @@ namespace DoAnBaiToan8So
                 }
                 else
                 {
-                    //sinh hướng đi của node hiện tại
+                    // Sinh ra hướng đi có thể có ở vị trí node hiện tại
                     List<Node> ListHuongDi = new List<Node>();
                     ListHuongDi = HuongDi(TamSo);
 
-                    for (int i = 0; i < ListHuongDi.Count; i++)
+                    int hd = ListHuongDi.Count;
+                    for (int i = 0; i < hd; i++)
                     {
-                        //hướng đi không thuộc Open và Close
+                        // hướng đi không thuộc Open và Close
                         if (!NodeTrungNhau(ListHuongDi[i], Open) && !NodeTrungNhau(ListHuongDi[i], Close))
                         {
                             Open.Add(ListHuongDi[i]);
                         }
                         else
-                        {   //nếu hướng đi thuộc Open
+                        {   // nếu hướng đi thuộc Open
                             if (NodeTrungNhau(ListHuongDi[i], Open))
                             {
                                 /*nếu hướng đi đó tốt hơn thì sẽ được cập nhật lại, 
@@ -98,9 +99,9 @@ namespace DoAnBaiToan8So
                     t = ViTriTotNhat(Open);
                 }
             }
+
             //truy vét kết quả tỏng tập Close
             SepKetQua = TruyVet(Close);
-
             return SepKetQua;
         }
 
