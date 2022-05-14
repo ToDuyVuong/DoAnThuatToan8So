@@ -15,6 +15,7 @@ namespace DoAnBaiToan8So
         // Khai báo các biến 
         int[,] MaTranCT8So;
         CT8SO EightPuzzle;
+        BoTest8Puzzle Test8;       
         Stack<int[,]> Sep;        
         Button[,] Mangbutton;
         //int n = 3;
@@ -26,9 +27,11 @@ namespace DoAnBaiToan8So
             InitializeComponent();
             MaTranCT8So = new int[3, 3];
             EightPuzzle = new CT8SO();
+            Test8 = new BoTest8Puzzle();
             Sep = new Stack<int[,]>();
             Mangbutton = new Button[3, 3];
         }
+
 
 
         // Đổi màu các button báo hiệu chương trình sẳn sàng chạy
@@ -51,15 +54,19 @@ namespace DoAnBaiToan8So
         }
 
 
+
+        // Khởi tạo
         void KhoiTao8So()
         {
-            // Tạo trò chơi 8 số bằng cách random
-            MaTranCT8So = EightPuzzle.randomMaTran(3);
+            // Tạo trò chơi 8 số bằng cách chọn các bộ test
+            MaTranCT8So = Test8.BoTest8So(3); 
+            
             // Đổi màu đánh dấu chương trình đã sẳn sàng
             load8So_DoiMauCacButton(MaTranCT8So, Mangbutton);
-            // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Sep = EightPuzzle.timKetQua(MaTranCT8So, 3);
+
+            Sep = EightPuzzle.TimPhuongAn(MaTranCT8So, 3);
             Sep.Pop(); // Xóa phần tử khỏi đỉnh
+
             // Chọn tốc độ chạy ban đầu
             comboboxTocDo.Text = comboboxTocDo.Items[1].ToString();
             // Tính số bước đi
@@ -73,7 +80,7 @@ namespace DoAnBaiToan8So
 
 
         
-
+        // Chơi mới
         private void bottonChoiMoi_Click(object sender, EventArgs e)
         {
             KhoiTao8So();
@@ -82,6 +89,7 @@ namespace DoAnBaiToan8So
 
         
 
+        // Tạm dừng
         private void bottonDung_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
@@ -89,6 +97,9 @@ namespace DoAnBaiToan8So
             buttonBatDau.Enabled = true;
         }
 
+
+
+        // Load Form
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -110,6 +121,9 @@ namespace DoAnBaiToan8So
             }
         }
 
+
+
+        // Chạy CT giải
         private void timer1_Tick(object sender, EventArgs e)
         {
             switch (comboboxTocDo.Text)
@@ -132,11 +146,21 @@ namespace DoAnBaiToan8So
                 timer1.Enabled = false;
         }
 
+
+
+        // Bắt đầu CT
         private void bottonBatDau_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
             buttonBatDau.Enabled = false;
             buttonDung.Enabled = true;
+        }
+
+
+        // Đóng CT
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
