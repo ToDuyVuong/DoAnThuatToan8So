@@ -14,7 +14,7 @@ namespace DoAnBaiToan8So
     {
         // Khai báo các biến 
         int[,] MaTranCT8So;
-        CT8SO EightPuzzle;
+        ThuatToanAStar EightPuzzle;
         BoTest8Puzzle Test8;       
         Stack<int[,]> Sep;        
         Button[,] Mangbutton;
@@ -26,7 +26,7 @@ namespace DoAnBaiToan8So
         {
             InitializeComponent();
             MaTranCT8So = new int[3, 3];
-            EightPuzzle = new CT8SO();
+            EightPuzzle = new ThuatToanAStar();
             Test8 = new BoTest8Puzzle();
             Sep = new Stack<int[,]>();
             Mangbutton = new Button[3, 3];
@@ -37,8 +37,8 @@ namespace DoAnBaiToan8So
         // Đổi màu các button báo hiệu chương trình sẳn sàng chạy
         void load8So_DoiMauCacButton(int[,] a, Button[,] b)
         {
-            for (int i = 0; i < a.GetLength(0); i++)
-                for (int j = 0; j < a.GetLength(0); j++)
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
                 {
                     if (a[i, j] == 0)
                     {

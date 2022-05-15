@@ -16,7 +16,7 @@ namespace DoAnBaiToan8So
         public int ChaNode;
         public int ChiPhiDenNode;
     }
-    public class CT8SO
+    public class ThuatToanAStar
     {
         private int ChiSo = 0;// chỉ số của Node sẽ tăng sau mỗi lần sinh ra 1 node
         private int fn = 0;// Sau mỗi lần sinh ra Node con thì chi phí các node tăng 1 
@@ -119,7 +119,7 @@ namespace DoAnBaiToan8So
             // Tìm phương án thông qua dò chan ode cuối cùng và chỉ số node đầu tiên
             while (t != -1)
             {
-                for (int i = 0; i < n - 1; i++)
+                for (int i = 0; i < n; i++)
                 {
                     if (t == ListNODE[i].ChiSoNode)
                     {
