@@ -40,10 +40,14 @@
             this.buttonSo5 = new System.Windows.Forms.Button();
             this.buttonSo8 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelBFSNhanhHon = new System.Windows.Forms.Label();
+            this.labelAStarNhanhHon = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.labelThuatToan = new System.Windows.Forms.Label();
             this.labelThuatToanAStar = new System.Windows.Forms.Label();
-            this.labelSoLanDiChuyen = new System.Windows.Forms.Label();
+            this.labelSoLanDiChuyenBFS = new System.Windows.Forms.Label();
             this.SoLanDiChuyenThuatToan = new System.Windows.Forms.Label();
             this.buttonDung = new System.Windows.Forms.Button();
             this.buttonChoiMoi = new System.Windows.Forms.Button();
@@ -64,8 +68,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -192,12 +195,14 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel2.Controls.Add(this.labelBFSNhanhHon);
+            this.panel2.Controls.Add(this.labelAStarNhanhHon);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.labelThuatToan);
             this.panel2.Controls.Add(this.labelThuatToanAStar);
-            this.panel2.Controls.Add(this.labelSoLanDiChuyen);
+            this.panel2.Controls.Add(this.labelSoLanDiChuyenBFS);
             this.panel2.Controls.Add(this.SoLanDiChuyenThuatToan);
             this.panel2.Controls.Add(this.buttonDung);
             this.panel2.Controls.Add(this.buttonChoiMoi);
@@ -206,18 +211,59 @@
             this.panel2.Controls.Add(this.SoLanDiChuyenThuatToanAStar);
             this.panel2.Controls.Add(this.labelToDo);
             this.panel2.Controls.Add(this.comboboxTocDo);
+            this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(507, 92);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(404, 549);
+            this.panel2.Size = new System.Drawing.Size(404, 597);
             this.panel2.TabIndex = 39;
+            // 
+            // labelBFSNhanhHon
+            // 
+            this.labelBFSNhanhHon.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.labelBFSNhanhHon.Location = new System.Drawing.Point(262, 453);
+            this.labelBFSNhanhHon.Name = "labelBFSNhanhHon";
+            this.labelBFSNhanhHon.Size = new System.Drawing.Size(105, 83);
+            this.labelBFSNhanhHon.TabIndex = 29;
+            this.labelBFSNhanhHon.Text = "0";
+            this.labelBFSNhanhHon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelAStarNhanhHon
+            // 
+            this.labelAStarNhanhHon.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.labelAStarNhanhHon.Location = new System.Drawing.Point(28, 453);
+            this.labelAStarNhanhHon.Name = "labelAStarNhanhHon";
+            this.labelAStarNhanhHon.Size = new System.Drawing.Size(105, 83);
+            this.labelAStarNhanhHon.TabIndex = 28;
+            this.labelAStarNhanhHon.Text = "0";
+            this.labelAStarNhanhHon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label4.Location = new System.Drawing.Point(257, 428);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(110, 16);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Số lần nhanh hơn";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label3.Location = new System.Drawing.Point(31, 428);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(110, 16);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Số lần nhanh hơn";
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Red;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.button1.Location = new System.Drawing.Point(135, 357);
+            this.button1.Location = new System.Drawing.Point(122, 554);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(152, 40);
             this.button1.TabIndex = 25;
@@ -245,21 +291,21 @@
             this.labelThuatToanAStar.TabIndex = 22;
             this.labelThuatToanAStar.Text = "Thuật Toán A*";
             // 
-            // labelSoLanDiChuyen
+            // labelSoLanDiChuyenBFS
             // 
-            this.labelSoLanDiChuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.labelSoLanDiChuyen.Location = new System.Drawing.Point(228, 357);
-            this.labelSoLanDiChuyen.Name = "labelSoLanDiChuyen";
-            this.labelSoLanDiChuyen.Size = new System.Drawing.Size(175, 112);
-            this.labelSoLanDiChuyen.TabIndex = 21;
-            this.labelSoLanDiChuyen.Text = "0";
-            this.labelSoLanDiChuyen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelSoLanDiChuyenBFS.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.labelSoLanDiChuyenBFS.Location = new System.Drawing.Point(254, 330);
+            this.labelSoLanDiChuyenBFS.Name = "labelSoLanDiChuyenBFS";
+            this.labelSoLanDiChuyenBFS.Size = new System.Drawing.Size(105, 83);
+            this.labelSoLanDiChuyenBFS.TabIndex = 21;
+            this.labelSoLanDiChuyenBFS.Text = "0";
+            this.labelSoLanDiChuyenBFS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SoLanDiChuyenThuatToan
             // 
             this.SoLanDiChuyenThuatToan.AutoSize = true;
             this.SoLanDiChuyenThuatToan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.SoLanDiChuyenThuatToan.Location = new System.Drawing.Point(257, 325);
+            this.SoLanDiChuyenThuatToan.Location = new System.Drawing.Point(257, 293);
             this.SoLanDiChuyenThuatToan.Name = "SoLanDiChuyenThuatToan";
             this.SoLanDiChuyenThuatToan.Size = new System.Drawing.Size(106, 16);
             this.SoLanDiChuyenThuatToan.TabIndex = 20;
@@ -269,8 +315,8 @@
             // 
             this.buttonDung.BackColor = System.Drawing.Color.Olive;
             this.buttonDung.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.buttonDung.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.buttonDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDung.ForeColor = System.Drawing.Color.Indigo;
             this.buttonDung.Location = new System.Drawing.Point(135, 129);
             this.buttonDung.Name = "buttonDung";
             this.buttonDung.Size = new System.Drawing.Size(152, 40);
@@ -283,7 +329,7 @@
             // 
             this.buttonChoiMoi.BackColor = System.Drawing.Color.Lime;
             this.buttonChoiMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonChoiMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.buttonChoiMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonChoiMoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.buttonChoiMoi.Location = new System.Drawing.Point(135, 29);
             this.buttonChoiMoi.Name = "buttonChoiMoi";
@@ -297,8 +343,8 @@
             // 
             this.buttonBatDau.BackColor = System.Drawing.Color.Blue;
             this.buttonBatDau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBatDau.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.buttonBatDau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.buttonBatDau.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBatDau.ForeColor = System.Drawing.Color.Yellow;
             this.buttonBatDau.Location = new System.Drawing.Point(135, 79);
             this.buttonBatDau.Name = "buttonBatDau";
             this.buttonBatDau.Size = new System.Drawing.Size(152, 40);
@@ -310,9 +356,9 @@
             // labelSoLanDiChuyenAStar
             // 
             this.labelSoLanDiChuyenAStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.labelSoLanDiChuyenAStar.Location = new System.Drawing.Point(2, 357);
+            this.labelSoLanDiChuyenAStar.Location = new System.Drawing.Point(28, 330);
             this.labelSoLanDiChuyenAStar.Name = "labelSoLanDiChuyenAStar";
-            this.labelSoLanDiChuyenAStar.Size = new System.Drawing.Size(175, 112);
+            this.labelSoLanDiChuyenAStar.Size = new System.Drawing.Size(105, 83);
             this.labelSoLanDiChuyenAStar.TabIndex = 16;
             this.labelSoLanDiChuyenAStar.Text = "0";
             this.labelSoLanDiChuyenAStar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -321,7 +367,7 @@
             // 
             this.SoLanDiChuyenThuatToanAStar.AutoSize = true;
             this.SoLanDiChuyenThuatToanAStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.SoLanDiChuyenThuatToanAStar.Location = new System.Drawing.Point(31, 325);
+            this.SoLanDiChuyenThuatToanAStar.Location = new System.Drawing.Point(31, 293);
             this.SoLanDiChuyenThuatToanAStar.Name = "SoLanDiChuyenThuatToanAStar";
             this.SoLanDiChuyenThuatToanAStar.Size = new System.Drawing.Size(106, 16);
             this.SoLanDiChuyenThuatToanAStar.TabIndex = 15;
@@ -344,7 +390,8 @@
             this.comboboxTocDo.FormattingEnabled = true;
             this.comboboxTocDo.Items.AddRange(new object[] {
             "1",
-            "2"});
+            "2",
+            "3"});
             this.comboboxTocDo.Location = new System.Drawing.Point(122, 211);
             this.comboboxTocDo.Name = "comboboxTocDo";
             this.comboboxTocDo.Size = new System.Drawing.Size(179, 21);
@@ -469,59 +516,44 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label7.Location = new System.Drawing.Point(165, 22);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(71, 22);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(1106, 37);
+            this.label7.Size = new System.Drawing.Size(1227, 39);
             this.label7.TabIndex = 24;
-            this.label7.Text = "Đồ Án Bài Toán 8 Số So Sanh Giữa Thuật Toán A* Và Thuật Toán BFS";
+            this.label7.Text = "Đồ Án Bài Toán 8 Số So Sanh Giữa Thuật Toán A Star Và Thuật Toán BFS";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(189, 92);
+            this.label1.Location = new System.Drawing.Point(92, 102);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 24);
+            this.label1.Size = new System.Drawing.Size(345, 24);
             this.label1.TabIndex = 26;
-            this.label1.Text = "Thuật Toán A*";
+            this.label1.Text = "Phương Án Theo Thuật Toán A Star";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.Location = new System.Drawing.Point(1081, 92);
+            this.label2.Location = new System.Drawing.Point(1017, 102);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(162, 24);
+            this.label2.Size = new System.Drawing.Size(328, 24);
             this.label2.TabIndex = 26;
-            this.label2.Text = "Thuật Toán BFS";
+            this.label2.Text = "Phương Án Theo Thuật Toán BFS";
             // 
-            // label3
+            // timer2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label3.Location = new System.Drawing.Point(31, 510);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 16);
-            this.label3.TabIndex = 26;
-            this.label3.Text = "Số lần nhanh hơn";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label4.Location = new System.Drawing.Point(257, 510);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 16);
-            this.label4.TabIndex = 27;
-            this.label4.Text = "Số lần nhanh hơn";
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1416, 673);
+            this.ClientSize = new System.Drawing.Size(1419, 701);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
@@ -544,6 +576,7 @@
             this.Controls.Add(this.ButtonAStartSo6);
             this.Controls.Add(this.ButtonAStartSo5);
             this.Controls.Add(this.ButtonAStartSo8);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -572,7 +605,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelThuatToan;
         private System.Windows.Forms.Label labelThuatToanAStar;
-        private System.Windows.Forms.Label labelSoLanDiChuyen;
+        private System.Windows.Forms.Label labelSoLanDiChuyenBFS;
         private System.Windows.Forms.Label SoLanDiChuyenThuatToan;
         private System.Windows.Forms.Button buttonDung;
         private System.Windows.Forms.Button buttonChoiMoi;
@@ -596,6 +629,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelBFSNhanhHon;
+        private System.Windows.Forms.Label labelAStarNhanhHon;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 
