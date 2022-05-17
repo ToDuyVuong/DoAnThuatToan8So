@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Diagnostics;
 
 namespace DoAnBaiToan8So
 {
@@ -36,6 +38,15 @@ namespace DoAnBaiToan8So
 
         int NhoAStarNhanhHon = 0;
         int NhoBFSNhanhHon = 0;
+
+        int ThoiGianChayAStar = 0;
+        int ThoiGianChayBFS = 0;
+
+        int ToiUuThoiGianChayAStar = 0;
+        int ToiUuThoiGianChayBFS = 0;
+
+        Stopwatch TimeAStar = new Stopwatch();
+        Stopwatch TimeBFS = new Stopwatch();
 
         public MainForm()
         {
@@ -117,7 +128,7 @@ namespace DoAnBaiToan8So
             //StackPhuongAnBFS.Pop();
 
             // Chọn tốc độ chạy ban đầu
-            comboboxTocDo.Text = comboboxTocDo.Items[1].ToString();
+            comboboxTocDo.Text = comboboxTocDo.Items[2].ToString();
 
             // Tính số bước đi
             labelSoLanDiChuyenAStar.Text = "0";
@@ -136,29 +147,199 @@ namespace DoAnBaiToan8So
         
         // Chơi mới
         private void bottonChoiMoi_Click(object sender, EventArgs e)
-        {
+        {           
+            // Hàm tính toán thời gian chạy
+            Invoke(new Action(() =>
+            {
+                TimeAStar.Stop();
+                TimeBFS.Stop();
+                TimeAStar.Reset();
+                TimeBFS.Reset();
+
+                labelThoiGianHoanThanhAStar.Text = TimeAStar.ElapsedTicks.ToString();
+                labelThoiGianHoanThanhBFS.Text = TimeBFS.ElapsedTicks.ToString();
+            }));
+
             KhoiTao8So();
             buttonBatDau.Enabled = true;
         }
 
-        
+
+
+        // Bắt đầu CT
+        private void bottonBatDau_Click(object sender, EventArgs e)
+        {
+            // timer1.Enabled = true;
+            // timer2.Enabled = true;
+
+            // 2 hàm chạy cùng lúc
+            Invoke(new Action(() =>
+            {
+                timer1.Enabled = true;
+                TimeAStar.Start();
+            }));
+            Invoke(new Action(() =>
+            {
+                timer2.Enabled = true;
+                TimeBFS.Start();
+            }));
+
+            buttonBatDau.Enabled = false;
+            buttonDung.Enabled = true;
+        }
+
+
 
         // Tạm dừng
         private void bottonDung_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
-            timer2.Enabled = false;
+            Invoke(new Action(() =>
+            {
+                TimeAStar.Stop();
+                TimeBFS.Stop();
+                timer1.Enabled = false;
+                timer2.Enabled = false;
+            }));
+            
             buttonDung.Enabled = false;
             buttonBatDau.Enabled = true;
+        }
+
+                
+
+        // Chạy chương trình theo phương án giải A Star
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            switch (comboboxTocDo.Text)
+            {
+                case "1": timer1.Interval = 1750; break;
+                case "2": timer1.Interval = 225; break;
+                case "3": timer1.Interval = 1; break;
+            }
+
+            int[,] Temp = new int[3, 3];
+
+            if (StackPhuongAnAStar.Count != 0)
+            {
+                Temp = StackPhuongAnAStar.Pop(); // Xóa phần tử khỏi đỉnh
+                Load_DoiMauCacButtonAStar(Temp, Mangbutton);
+
+                SoLanDiChuyenAStar++;
+                AStarNhanhHon = SoLanDiChuyenAStar;
+                labelSoLanDiChuyenAStar.Text = SoLanDiChuyenAStar.ToString();
+            }
+            else
+            {
+                Invoke(new Action(() =>
+                {
+                    timer1.Enabled = false;
+                    TimeAStar.Stop();
+                  //  TimeAStar.Restart();                    
+                }));
+
+                ThoiGianChayAStar = Convert.ToInt32(TimeAStar.ElapsedTicks.ToString());
+
+                // Đo thời gian chạy và so sánh
+                if(timer2.Enabled == false)
+                {
+                    labelThoiGianHoanThanhAStar.Text = TimeAStar.ElapsedTicks.ToString();
+                    labelThoiGianHoanThanhBFS.Text = TimeBFS.ElapsedTicks.ToString();
+
+                    if (ThoiGianChayAStar > ThoiGianChayBFS)
+                    {
+                        ToiUuThoiGianChayBFS++;
+                        labelSoLanThoiGianBFSNhanhHon.Text = ToiUuThoiGianChayBFS.ToString();
+                    }
+                    if (ThoiGianChayAStar < ThoiGianChayBFS)
+                    {
+                        ToiUuThoiGianChayAStar++;
+                        labelSoLanThoiGianAStarNhanhHon.Text = ToiUuThoiGianChayAStar.ToString();
+                    }
+                }//timer1.Enabled = false;
+
+                // So sánh chi phi đến đích
+                if (timer2.Enabled == false)
+                {
+                    if (BFSNhanhHon > AStarNhanhHon)
+                    {
+                        NhoAStarNhanhHon++;
+                        labelAStarNhanhHon.Text = NhoAStarNhanhHon.ToString();
+                    }
+                    if (BFSNhanhHon < AStarNhanhHon)
+                    {
+                        NhoBFSNhanhHon++;
+                        labelBFSNhanhHon.Text = NhoBFSNhanhHon.ToString();
+                    }
+                }
+            }
+        }
+
+
+
+        // Chạy chương trình theo phương án giải BFS
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            switch (comboboxTocDo.Text)
+            {
+                case "1": timer2.Interval = 1750; break;
+                case "2": timer2.Interval = 225; break;
+                case "3": timer2.Interval = 1; break;
+            }
+            int[,] Temp = new int[3, 3];
+            if (StackPhuongAnBFS.Count != 0)
+            {
+                Temp = StackPhuongAnBFS.Pop();
+                Load_DoiMauCacButtonBFS(Temp, MangbuttonBFS);
+                SoLanDiChuyenBFS++;
+                BFSNhanhHon = SoLanDiChuyenBFS;
+                labelSoLanDiChuyenBFS.Text = SoLanDiChuyenBFS.ToString();
+            }
+            else
+            {
+                Invoke(new Action(() =>
+                {
+                    timer2.Enabled = false;
+                    TimeBFS.Stop();
+                   // TimeBFS.Restart();
+                }));
+                ThoiGianChayBFS = Convert.ToInt32(TimeBFS.ElapsedTicks.ToString());
+                if (timer1.Enabled == false)
+                {
+                    labelThoiGianHoanThanhAStar.Text = TimeAStar.ElapsedTicks.ToString();
+                    labelThoiGianHoanThanhBFS.Text = TimeBFS.ElapsedTicks.ToString();
+                    if (ThoiGianChayAStar > ThoiGianChayBFS)
+                    {
+                        ToiUuThoiGianChayBFS++;
+                        labelSoLanThoiGianBFSNhanhHon.Text = ToiUuThoiGianChayBFS.ToString();
+                    }
+                    if (ThoiGianChayAStar < ThoiGianChayBFS)
+                    {
+                        ToiUuThoiGianChayAStar++;
+                        labelSoLanThoiGianAStarNhanhHon.Text = ToiUuThoiGianChayAStar.ToString();
+                    }
+                }
+                // timer2.Enabled = false;
+                if (timer1.Enabled == false)
+                {
+                    if (BFSNhanhHon > AStarNhanhHon)
+                    {
+                        NhoAStarNhanhHon++;
+                        labelAStarNhanhHon.Text = NhoAStarNhanhHon.ToString();
+                    }
+                    if (BFSNhanhHon < AStarNhanhHon)
+                    {
+                        NhoBFSNhanhHon++;
+                        labelBFSNhanhHon.Text = NhoBFSNhanhHon.ToString();
+                    }
+                }  
+            }
         }
 
 
 
         // Load Form
         private void MainForm_Load(object sender, EventArgs e)
-        {
-
-            {
+        {            
                 // Button cho A Star
                 Mangbutton[0, 0] = ButtonAStartSo1;
                 Mangbutton[0, 1] = ButtonAStartSo2;
@@ -182,102 +363,7 @@ namespace DoAnBaiToan8So
                 MangbuttonBFS[2, 2] = buttonSo5;
 
                 buttonBatDau.Enabled = false;
-                buttonDung.Enabled = false;
-
-            }
-        }
-
-
-
-        // Chạy chương trình theo phương án giải A Star
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            switch (comboboxTocDo.Text)
-            {
-                case "1": timer1.Interval = 1750; break;
-                case "2": timer1.Interval = 225; break;
-                case "3": timer1.Interval = 200; break;
-            }
-
-            int[,] Temp = new int[3, 3];
-
-            if (StackPhuongAnAStar.Count != 0)
-            {
-                Temp = StackPhuongAnAStar.Pop(); // Xóa phần tử khỏi đỉnh
-                Load_DoiMauCacButtonAStar(Temp, Mangbutton);
-
-                SoLanDiChuyenAStar++;
-                AStarNhanhHon = SoLanDiChuyenAStar;
-                labelSoLanDiChuyenAStar.Text = SoLanDiChuyenAStar.ToString();
-            }
-            else
-            {
-                if (BFSNhanhHon > AStarNhanhHon)
-                {
-                    NhoAStarNhanhHon++;
-                    labelAStarNhanhHon.Text = NhoAStarNhanhHon.ToString();
-                }
-                if (BFSNhanhHon < AStarNhanhHon)
-                {
-                    NhoBFSNhanhHon++;
-                    labelBFSNhanhHon.Text = NhoBFSNhanhHon.ToString();
-                }
-                timer1.Enabled = false;
-
-            }
-        }
-
-
-
-        // Chạy chương trình theo phương án giải BFS
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            switch (comboboxTocDo.Text)
-            {
-                case "1": timer2.Interval = 1750; break;
-                case "2": timer2.Interval = 225; break;
-                case "3": timer2.Interval = 200; break;
-            }
-
-            int[,] Temp = new int[3, 3];
-
-
-            if (StackPhuongAnBFS.Count != 0)
-            {
-                Temp = StackPhuongAnBFS.Pop(); // Xóa phần tử khỏi đỉnh
-                Load_DoiMauCacButtonBFS(Temp, MangbuttonBFS);
-
-                SoLanDiChuyenBFS++;
-                BFSNhanhHon = SoLanDiChuyenBFS;
-                labelSoLanDiChuyenBFS.Text = SoLanDiChuyenBFS.ToString();
-            }
-            else
-            {
-                if (BFSNhanhHon > AStarNhanhHon)
-                {
-                    NhoAStarNhanhHon++;
-                    labelAStarNhanhHon.Text = NhoAStarNhanhHon.ToString();
-                }
-                if (BFSNhanhHon < AStarNhanhHon)
-                {
-                    NhoBFSNhanhHon++;
-                    labelBFSNhanhHon.Text = NhoBFSNhanhHon.ToString();
-                }
-                timer2.Enabled = false;
-
-            }
-
-        }
-
-
-
-        // Bắt đầu CT
-        private void bottonBatDau_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = true;
-            timer2.Enabled = true;
-            buttonBatDau.Enabled = false;
-            buttonDung.Enabled = true;
+                buttonDung.Enabled = false;            
         }
 
 
@@ -287,6 +373,8 @@ namespace DoAnBaiToan8So
         {
             Close();
         }
+
+        
 
 
     }
