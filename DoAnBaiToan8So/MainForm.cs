@@ -114,6 +114,17 @@ namespace DoAnBaiToan8So
             // Tạo trò chơi 8 số bằng cách chọn các bộ test
             int[,] ex = new int[3, 3];
             ex = Test8.BoTest8So(3);
+
+            int h = 0;
+            int[] H = new int[9];
+            for (int i = 0; i<3; i++)
+                for (int j = 0; j<3; j++)
+                {
+                    H[h] = ex[i, j];
+                    h++;
+                }    
+
+
             MaTranCT8So = ex;
             MaTranCT8SoBFS = ex;
 
